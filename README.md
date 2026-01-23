@@ -28,7 +28,6 @@ O projeto consiste em evoluir um website estático através das seguintes etapas
 ## 📂 Detalhes dos Projetos
 
 ### [Projeto 1: Containerização e Deploy Manual](./projeto-1)
-> *Para ver a documentação técnica completa e passo-a-passo deste projeto, acesse a pasta fase-01*
 
 Nesta primeira fase, o foco foi entender os fundamentos da containerização e como a nuvem interage com containers sem camadas de abstração complexas. O objetivo foi pegar uma aplicação web simples (HTML/CSS/JS) e colocá-la no ar na AWS "na unha".
 
