@@ -25,7 +25,7 @@ O projeto consiste em evoluir um website estático através das seguintes etapas
 
 ---
 
-## 📂 Detalhes dos Projetos
+## 📂 Detalhes das Fases
 
 ### [Fase 1: Containerização e Deploy Manual](./fase-01)
 
