@@ -5,6 +5,12 @@ Bem-vindo ao meu **Laboratório DevOps**. Este repositório documenta minha jorn
 O objetivo é simular cenários reais de engenharia de software e infraestrutura, evoluindo o mesmo projeto através de 4 fases distintas de maturidade DevOps.
 
 ---
+### ✨ Créditos e Inspiração
+
+Este projeto foi desenvolvido seguindo o roteiro de estudos e laboratórios práticos disponibilizados por **[Maria Lázara](https://github.com/marialazara)**.
+Todo o fluxo foi executado com base na metodologia ensinada por ela.
+
+---
 
 ## 🗺️ Roadmap do Laboratório
 
