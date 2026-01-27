@@ -19,7 +19,7 @@ O projeto consiste em evoluir um website estático através das seguintes etapas
 | Fase | Projeto | Tecnologias Chave |
 |------|---------|-------------------|
 | **01** | **Containerização e Deploy Manual na AWS** | Docker, ECR, EC2, Linux, Nginx |
-| **02** |  |  |
+| **02** | **Infraestrutura como Código (IaC) com Terraform** | Terraform, HCL, AWS (EC2, ECR, S3) |
 | **03** |  |  |
 | **04** |  |  |
 
@@ -47,9 +47,28 @@ O fluxo construído foi:
 
 ---
 
+### [Fase 2: Automatização de Infraestrutura com Terraform](./fase-02)
+
+Nesta fase, o desafio foi eliminar o processo manual de criação de recursos no console da AWS. O objetivo foi aplicar o conceito de **Infrastructure as Code (IaC)**, garantindo que todo o ambiente fosse provisionado de forma automática, replicável e versionada.
+
+#### 🏗️ Arquitetura Implementada
+O fluxo de trabalho evoluiu para:
+1.  **Definição:** Escrita dos arquivos de configuração em HCL.
+2.  **Planejamento:** Uso do `terraform plan` para validar e visualizar as mudanças antes da execução real.
+3.  **Provisionamento:** Execução automatizada para criar ECR, S3, Security Groups e a instância EC2.
+
+#### 🧠 O que aprendi e apliquei:
+* **Terraform CLI:** Ciclo de vida essencial através dos comandos `init`, `plan`, `apply` e `destroy`.
+* **State Management:** Entendimento do funcionamento do `terraform.tfstate` para manter o rastreio da infraestrutura real.
+* **Automação de Rede e Segurança:** Provisionamento automatizado de grupos de segurança e regras de entrada/saída.
+* **Reprodutibilidade:** Capacidade de destruir e recriar todo o ambiente do projeto em minutos com comandos simples.
+
+---
+
 ## 🛠️ Tecnologias Utilizadas no Laboratório
 * **Cloud:** AWS (EC2, ECR, IAM, VPC)
 * **Containers:** Docker, Docker Compose
 * **OS:** Linux (Amazon Linux 2023, Alpine)
 * **Web Server:** Nginx
+* **IaC:** Terraform
 * **Tools:** AWS CLI, VS Code, Git
