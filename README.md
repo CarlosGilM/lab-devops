@@ -20,7 +20,7 @@ O projeto consiste em evoluir um website estático através das seguintes etapas
 |------|---------|-------------------|
 | **01** | **Containerização e Deploy Manual na AWS** | Docker, ECR, EC2, Linux, Nginx |
 | **02** | **Infraestrutura como Código (IaC) com Terraform** | Terraform, HCL, AWS (EC2, ECR, S3) |
-| **03** |  |  |
+| **03** | **Automação de IaC com GitHub Actions** | GitHub Actions, YAML, Terraform |
 | **04** |  |  |
 
 ---
@@ -65,10 +65,33 @@ O fluxo de trabalho evoluiu para:
 
 ---
 
-## 🛠️ Tecnologias Utilizadas no Laboratório
-* **Cloud:** AWS (EC2, ECR, IAM, VPC)
+### [Fase 3: Provisionamento de IaC com GitHub Actions](./fase-03)
+
+Nesta fase, o foco foi eliminar a necessidade de intervenção manual no terminal local para gerenciar a infraestrutura. Implementei um pipeline de **CI/CD** que automatiza todo o ciclo de vida do Terraform, garantindo padronização, auditoria e segurança no provisionamento dos recursos na AWS.
+
+#### 🏗️ Arquitetura Implementada
+O fluxo de automação foi estruturado em um arquivo de workflow (`iac.yaml`):
+1.  **Gatilho (Workflow Dispatch):** Execução manual controlada via interface do GitHub, permitindo escolher entre aplicar ou destruir a infraestrutura.
+2.  **Autenticação Segura (OIDC):** Configuração de relação de confiança entre GitHub e AWS, eliminando a necessidade de chaves fixas (`access keys`) no repositório.
+3.  **Pipeline Steps:** 
+    * **Checkout & Setup:** Preparação do ambiente no runner (Ubuntu).
+    * **Init & Validate:** Inicialização do backend e validação sintática do código HCL.
+    * **Plan:** Geração de um arquivo de plano (`tfplan`) para visualização das mudanças.
+    * **Apply/Destroy:** Execução das alterações com base nos inputs fornecidos pelo usuário.
+
+#### 🧠 O que aprendi e apliquei:
+* **GitHub Actions:** Estruturação de workflows complexos utilizando sintaxe YAML.
+* **Segurança Avançada (Least Privilege):** Uso de IAM Roles específicas e autenticação via OIDC.
+* **Automação de Pipelines:** Criação de lógica condicional para execução de comandos `apply` ou `destroy`.
+* **Padronização de Ambiente:** Garantia de que a infraestrutura é provisionada sempre em um ambiente isolado e controlado (GitHub Runners).
+
+---
+
+* ## 🛠️ Tecnologias Utilizadas no Laboratório
+* **Cloud:** AWS (EC2, ECR, IAM, VPC, S3)
 * **Containers:** Docker, Docker Compose
-* **OS:** Linux (Amazon Linux 2023, Alpine)
-* **Web Server:** Nginx
 * **IaC:** Terraform
+* **CI/CD:** GitHub Actions
+* **OS:** Linux (Amazon Linux 2023, Alpine, Ubuntu)
+* **Web Server:** Nginx
 * **Tools:** AWS CLI, VS Code, Git
