@@ -12,6 +12,24 @@ on:
           - true
           - false
 
+      destroy:
+        description: 'Destruir a infraestrutura criada?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - true
+          - false
+
+      plan_destroy:
+        description: 'Planejar a destruição da infraestrutura?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - true
+          - false
+
 
 permissions:
   contents: read
@@ -28,7 +46,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v5.1.1
         with:
           role-to-assume: sua-role
-          aws-region: sua-region
+          aws-region: sua-regiao
 
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v3.1.2
@@ -45,3 +63,11 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan.tfout
         if: github.event.inputs.apply == 'true'
+
+      - name: Plan Destroy
+        run: terraform plan -destroy -out=tfplan.tfout
+        if: github.event.inputs.plan_destroy == 'true'
+
+      - name: Terraform Destroy
+        run: terraform apply -destroy -auto-approve tfplan.tfout
+        if: github.event.inputs.destroy == 'true'
