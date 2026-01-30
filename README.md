@@ -21,7 +21,7 @@ O projeto consiste em evoluir um website estático através das seguintes etapas
 | **01** | **Containerização e Deploy Manual na AWS** | Docker, ECR, EC2, Linux, Nginx |
 | **02** | **Infraestrutura como Código (IaC) com Terraform** | Terraform, HCL, AWS (EC2, ECR, S3) |
 | **03** | **Automação de IaC com GitHub Actions** | GitHub Actions, YAML, Terraform |
-| **04** |  |  |
+| **04** | **CI/CD de Aplicação e Deploy Automatizado** | GitHub Actions, Docker, SSH, CI/CD |
 
 ---
 
@@ -84,6 +84,23 @@ O fluxo de automação foi estruturado em um arquivo de workflow (`iac.yaml`):
 * **Segurança Avançada (Least Privilege):** Uso de IAM Roles específicas e autenticação via OIDC.
 * **Automação de Pipelines:** Criação de lógica condicional para execução de comandos `apply` ou `destroy`.
 * **Padronização de Ambiente:** Garantia de que a infraestrutura é provisionada sempre em um ambiente isolado e controlado (GitHub Runners).
+
+---
+
+### [Fase 4: CI/CD de Aplicação e Deploy Automatizado](./fase-04)
+
+Nesta fase final, o objetivo foi fechar o ciclo de entrega. Se na fase anterior automatizamos a "casa" (infraestrutura), aqui automatizamos a "mudança" (o código). Implementei um pipeline que detecta alterações no código-fonte, reconstrói a imagem e atualiza o servidor automaticamente.
+
+#### 🏗️ Arquitetura Implementada
+O fluxo de automação foi dividido em duas frentes:
+1.  **CI (Integração Contínua):** Build da imagem Docker baseada no novo código e Push automático para o Amazon ECR, utilizando tags para versionamento.
+2.  **CD (Entrega Contínua):** O pipeline se conecta de forma segura à instância EC2 via SSH, realiza o `docker pull` da nova imagem e reinicia o container com a versão atualizada.
+
+#### 🧠 O que aprendi e apliquei:
+* **GitHub Secrets:** Gerenciamento seguro de informações sensíveis, como chaves privadas SSH (.pem) e credenciais AWS, protegendo os dados de acesso.
+* **Automação de Deploy Remoto:** Execução de comandos em servidores distantes diretamente através do GitHub Actions.
+* **Ciclo de Vida de Imagens:** Estratégias de taggeamento e atualização de containers sem a necessidade de recriar a instância EC2.
+* **Segurança (OIDC & SSH):** Reforço da política de "Least Privilege" (Menor Privilégio) para que o pipeline tenha acesso apenas ao necessário para o deploy.
 
 ---
 
